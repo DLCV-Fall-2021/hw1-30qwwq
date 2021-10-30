@@ -40,7 +40,7 @@ class seg7_test(Dataset):
         self.transform = transform
 
         # read filenames
-        self.inputs = glob.glob(os.path.join(root,'*_sat.jpg'))
+        self.inputs = glob.glob(os.path.join(root,'.jpg'))
         self.inputs.sort()
         # self.targets = glob.glob(os.path.join(root, '*_mask.png'))
         # self.targets.sort() 

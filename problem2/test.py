@@ -46,7 +46,7 @@ def mask_to_img(mask, path):
 def main(config):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     same_seeds(30)
-    batch_size = 16
+    batch_size = 2
     test_set = seg7_test(root=config.img_dir, transform='test')
     test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False,  pin_memory=True)
     

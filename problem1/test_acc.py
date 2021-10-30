@@ -50,7 +50,7 @@ def main(config):
     model = checkpoint['model']
     
     batch_size = 2
-    test_set = classify50_test(root=config.img_dir, transform=test_tfm)
+    test_set = classify50(root=config.img_dir, transform=test_tfm)
     test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False,  pin_memory=True)
     
     model.eval()
@@ -60,19 +60,19 @@ def main(config):
     image_paths = []
 
     for batch in test_loader:
-        imgs, img_paths = batch
+        imgs, labels = batch
         
         with torch.no_grad():
             logits = model(imgs.to(device))
         
-        #acc = (logits.argmax(dim=-1) == labels.to(device)).float().mean()
-        #accs.append(acc)
+        acc = (logits.argmax(dim=-1) == labels.to(device)).float().mean()
+        accs.append(acc)
 
         predictions.extend(logits.argmax(dim=-1).cpu().numpy().tolist())
-        for img_path in img_paths:
-            img_name.append(img_path.split('/')) 
+        #for img_path in img_paths:
+         #   img_name.append(img_path.split('/')) 
             
-    #print(f'acc: {sum(accs) / len(accs)}')
+    print(f'acc: {sum(accs) / len(accs)}')
     with open(config.save_dir, "w") as f:
         f.write("image_id,label\n")
     
