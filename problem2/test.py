@@ -71,7 +71,7 @@ def main(config):
         img_paths = [path.split('/') for path in img_path]
         for i, path in enumerate(img_paths):
             # print(path[-1][:4])
-            save_path = path[-1][:4] + ".png"
+            save_path = path[-1][:-4] + ".png"
             # print(pred_list[i].min(), pred_list[i].max())
             mask_to_img(pred[i], os.path.join(config.save_dir, save_path))
     
